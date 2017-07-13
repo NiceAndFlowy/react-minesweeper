@@ -3,14 +3,19 @@ import Square from './Square';
 
 class Row extends Component {
   render() {
-    let squares = [];
-    for (let i=0; i<this.props.numCols; i++) {
-      let squareNum = (this.props.rowNum * this.props.numCols) + (i*1) + 1;
-      squares.push(<Square value={squareNum} />);
-    }
+    const squares = this.props.rowData.map((square, index) => {
+      return (
+        <Square 
+          value={square.isMine ? 99 : square.numMinesNearby}
+          key={this.props.rowNum * this.props.numCols + index}
+          square={square}
+          onClick={this.props.onClick}
+        />
+      );
+    });
 
     return (
-      <tr>{squares}</tr>
+      <tr><td>{squares}</td></tr>
     );
   }
 }

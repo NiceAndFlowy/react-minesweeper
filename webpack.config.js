@@ -1,6 +1,6 @@
 var path = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-
+var BabelTransformClassProperties = require('babel-plugin-transform-class-properties');
 module.exports = {
   entry: './app/index.js',
   output: {
@@ -9,7 +9,7 @@ module.exports = {
   },
   module: {
     rules: [
-      { test: /\.(js)$/, use: 'babel-loader' },
+      { test: /\.(js)$/, use: {loader: 'babel-loader', options: {plugins: [require('babel-plugin-transform-class-properties')]} } },
       { test: /\.(css)$/, use: ['style-loader', 'css-loader'] }
     ]
   },
