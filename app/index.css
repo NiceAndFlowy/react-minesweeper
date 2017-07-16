@@ -1,4 +1,31 @@
 .square {
   width: 30px;
   height: 30px;
+  background-color: #CCCCCC;
+  border: 1px outset white;
+}
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  border: 1px solid #CCCCCC;
+  padding: 0;
+  background-color: #CCCCCC;
+}
+td {
+  padding: 0;
+}
+
+.shown {
+  padding: 0;
+  border: 1px inset #CCCCCC;
+  background: none;
+  background-color: #DDDDDD;
+}
+
+.value0 {
+  color: transparent;
+}
+
+.value1 {
+
 }

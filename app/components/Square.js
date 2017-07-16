@@ -7,10 +7,10 @@ class Square extends Component {
   render() {
     return (
       <button 
-        className="square" 
+        className={"square" + (this.props.square.isShown ? ` shown value${this.props.square.numMinesNearby}` : "")} 
         type="button"
         onClick={this.revealSquare}
-        >
+      >
         {this.props.value}
       </button>
     );
