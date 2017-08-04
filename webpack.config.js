@@ -9,8 +9,23 @@ module.exports = {
   },
   module: {
     rules: [
-      { test: /\.(js)$/, use: {loader: 'babel-loader', options: {plugins: [require('babel-plugin-transform-class-properties')]} } },
-      { test: /\.(css)$/, use: ['style-loader', 'css-loader'] }
+      { 
+        test: /\.(js)$/, 
+        use: {
+          loader: 'babel-loader', 
+          options: {
+          plugins: [require('babel-plugin-transform-class-properties')]
+          } 
+        } 
+      },
+      { 
+        test: /\.(scss)$/, 
+        use: ['style-loader', 'css-loader', 'sass-loader'] 
+      },
+      { 
+        test: /\.(jpe?g|png)$/, 
+        use: 'file-loader?emitFile=false&name=[path][name].[ext]'
+      }
     ]
   },
   devServer: {

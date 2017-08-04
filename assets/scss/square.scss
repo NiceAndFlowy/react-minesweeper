@@ -1,0 +1,59 @@
+.square {
+  width: 30px;
+  height: 30px;
+  background-color:$mainColor;
+  vertical-align: bottom;
+  border: 1px outset white;
+ 
+  &:focus {
+    outline: none;
+  }
+}
+.shown {
+  padding: 0;
+  border: 1px inset $mainColor;
+  background: none;
+  background-color: $revealedColor;
+}
+
+.mine {
+  background: url("../images/icn_bomb_01.png") no-repeat center center;
+}
+
+.flag {
+  background: url("../images/icn_flag_01.png") no-repeat center center;  
+}
+
+.value {
+  &0 {
+    color: transparent;
+  }
+  &1 {
+    color: $value1;
+  }
+  &2 {
+    color: $value2;
+  }
+  &3 {
+    color: $value3;
+  }
+  &4 {
+    color: $value4;
+  }
+  &5 {
+    color: $value5;
+  }
+  &6 {
+    color: $value6;
+  }
+  &7 {
+    color: $value7;
+  }
+  &8 {
+    color: $value8;
+  }
+  &9 {
+    color: $value9;
+  }
+}
+

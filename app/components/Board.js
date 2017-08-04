@@ -1,8 +1,5 @@
 import React, { Component } from 'react';
 import Row from './Row';
-const BOARD_ROWS = 9;
-const BOARD_COLUMNS = 9;
-const NUM_MINES = 10;
 import Square from './Square';
 
 class Board extends Component {
@@ -14,12 +11,20 @@ class Board extends Component {
     console.log('The table is filled');
   }
   
+  componentWillReceiveProps(nextProps) {
+    if (this.props.difficulty !== nextProps.difficulty || nextProps.numSquaresRevealed === 0) {
+      this.setState(() => {
+        return ({table: this.createTable(nextProps)});
+      });
+    }
+  }
+
   createTable(props) {
     // fill table with empty squares
     const table = [];
-    for (let row=0; row<this.props.numRows; row++) {
+    for (let row=0; row<props.numRows; row++) {
       table.push([]);
-      for (let col=0; col<this.props.numCols; col++) {
+      for (let col=0; col<props.numCols; col++) {
         table[row].push({
           isMine: false,
           isFlagged: false,
@@ -31,64 +36,52 @@ class Board extends Component {
       }
     } 
     // fill with mines
-    for (let i=0; i<this.props.numMines; i++) {
-      const randomRow = Math.floor(Math.random() * this.props.numRows);
-      const randomCol = Math.floor(Math.random() * this.props.numCols);
+    for (let i=0; i<props.numMines; i++) {
+      const randomRow = Math.floor(Math.random() * props.numRows);
+      const randomCol = Math.floor(Math.random() * props.numCols);
       
       if (table[randomRow][randomCol].isMine) {
         i--;
       } else {
         table[randomRow][randomCol].isMine = true;
-        console.log(`this row col isEgg ${randomRow} ${randomCol}`);
+        // console.log(`this row col isEgg ${randomRow} ${randomCol}`);
       }
     }
     return table;
   }
 
-  handleClick = (square, event) => {
-    // while the num of mines = 0 -> recursively display the surrounding mines
-    // showNumAdjacentMines()
-    //  - countNumMines()
-    // keep recursively showing all the 0s until it reaches a mine or a number
-    console.log("handleClick");
-    // if (this.countNumMines(square) == 0) {
-    //   while ()
-    //   // if its a number or a mine it stops
-    //   if (this.countNumMines(square) > 0 && this.countNumMines(square) < 99 ) {
-    //     console.log('revealMine is called');
-    //     return this.revealMine(square);
-    //   }
-      
-    //   for (let row=-1; row<=1; row++) {
-    //     for (let col=-1; col<=1; col++) {
-    //       console.log(`this.handleClick([${square.row + row}][${square.col+col}])`);
-    //       if ((square.row + row) >= 0 
-    //       && (square.row + row) < this.state.table.length 
-    //       && (square.col + col) >= 0 
-    //       && (square.col + col) < this.state.table[0].length) {
-    //         console.log("I'm looping");
-    //         return this.handleClick(this.state.table[square.row + row][square.col + col], event);
-
-    //       }
-          
-    //     }
-    //   }
-    // }
-      
-    // else {
-    //   return this.revealMine(square);
-    // }
-    console.log(square);
+  handleClick = (event, square) => {
+    if (square.isFlagged || square.isShown) return;
+    
     const numMines = this.countNumMines(square);
     this.updateSquare(square);
+    this.props.incrementRevealedSquareCount();
 
-    if(square.numMinesNearby === 0) {
+    if (square.numMinesNearby === 0) {
       this.revealSurroundingSquares(square);
+    }
+
+    if (square.isMine) {
+      alert("You lost");
+      this.props.setGameOver();
     }
   }
   
-  handleFlagClick = (index, event) => {
-    // grab the clicked square and toggle isFlagged 
+  handleFlagClick = (event, square) => {
+    event.preventDefault();
+    if (!square.isShown) {
+      // Toggle flag
+      console.log(event);
+      console.log("Rightclicked");
+      const tableCopy = this.state.table.slice();
+      tableCopy[square.row][square.col].isFlagged = !tableCopy[square.row][square.col].isFlagged;
+      this.setState(() => { ({table: tableCopy}) });
+    }
+    
+  }
+
+  gameOver = () => {
+
   }
 
   countNumMines = (square) => {
@@ -129,7 +122,7 @@ class Board extends Component {
         && (square.col + col) < this.state.table[0].length
         && !(this.state.table[square.row + row][square.col + col].isMine)
         && !(this.state.table[square.row + row][square.col + col].isShown)) {
-          this.handleClick(this.state.table[square.row + row][square.col + col], null);
+          this.handleClick(null, this.state.table[square.row + row][square.col + col]);
         }
       }
     }
@@ -143,7 +136,8 @@ class Board extends Component {
           rowNum={index} 
           rowData={row} 
           key={index}
-          onClick={this.handleClick}          
+          onClick={this.handleClick}   
+          onContextMenu={this.handleFlagClick}       
           />
       );
     });

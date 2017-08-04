@@ -10,6 +10,7 @@ class Row extends Component {
           key={this.props.rowNum * this.props.numCols + index}
           square={square}
           onClick={this.props.onClick}
+          onContextMenu={this.props.onContextMenu}
         />
       );
     });

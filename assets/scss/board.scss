@@ -1,0 +1,18 @@
+table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  border: 1px solid $mainColor;
+  padding: 0;
+  background-color: $mainColor;
+}
+td {
+  padding: 0;
+}
+
+.difficulty-menu {
+  padding: 10px;
+  
+  input {
+    margin-right: 30px;
+  }
+}
