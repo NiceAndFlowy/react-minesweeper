@@ -4,15 +4,11 @@ table {
   border: 1px solid $mainColor;
   padding: 0;
   background-color: $mainColor;
+  white-space: nowrap;
+  margin: 0 auto;
 }
-td {
+td, tr {
   padding: 0;
+  width: 100%;
 }
 
-.difficulty-menu {
-  padding: 10px;
-  
-  input {
-    margin-right: 30px;
-  }
-}

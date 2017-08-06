@@ -1,0 +1,59 @@
+.flags-remaining {
+  background: url("../images/icn_flag_01.png") no-repeat center center;  
+  background-size: contain;
+  height: 30px;
+  width: 30px;
+  margin: 0 auto;
+}
+
+.time-elapsed {
+  background: url("../images/icn_clock_01.png") no-repeat center center;    
+  background-size: contain;
+  height: 30px;
+  width: 30px;
+  margin: 0 auto;
+}
+
+.reset {
+  height: 30px;
+  width: 30px;
+  display: block;
+  margin: 0 auto;
+}
+
+.hud {
+  display: flex;
+  margin: 0 auto;
+  padding: 10px 30px 0px 30px;
+  width: 270px;
+  p {
+    text-align: center;
+  }
+}
+
+// Game states - smiley face 
+.game-over {
+  background: url("../images/icn_face_03.png") no-repeat center center;    
+  background-size: contain;
+}
+
+.game-won {
+  background: url("../images/icn_face_02.png") no-repeat center center;    
+  background-size: contain;
+}
+
+.game-playing {
+  background: url("../images/icn_face_01.png") no-repeat center center;
+  background-size: contain;
+}
+
+.difficulty-menu {
+  padding: 10px;
+  display: block;
+  margin: 0 auto;
+  text-align: center;
+  
+  input {
+    margin-right: 15px;
+  }
+}

@@ -14,11 +14,13 @@
   border: 1px inset $mainColor;
   background: none;
   background-color: $revealedColor;
+  
+  &.mine {
+    background: url("../images/icn_bomb_01.png") no-repeat center center;
+  }
+
 }
 
-.mine {
-  background: url("../images/icn_bomb_01.png") no-repeat center center;
-}
 
 .flag {
   background: url("../images/icn_flag_01.png") no-repeat center center;  

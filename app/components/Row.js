@@ -1,24 +1,27 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import Square from './Square';
 
-class Row extends Component {
-  render() {
-    const squares = this.props.rowData.map((square, index) => {
-      return (
-        <Square 
-          value={square.isMine ? 99 : square.numMinesNearby}
-          key={this.props.rowNum * this.props.numCols + index}
-          square={square}
-          onClick={this.props.onClick}
-          onContextMenu={this.props.onContextMenu}
-        />
-      );
-    });
+function Row(props) {
+  const squares = props.rowData.map((square, index) => (
+    <Square
+      key={(props.rowNum * props.numCols) + index}
+      square={square}
+      onClick={props.onClick}
+      onContextMenu={props.onContextMenu}
+    />
+    ));
 
-    return (
-      <tr><td>{squares}</td></tr>
-    );
-  }
+  return (
+    <tr><td>{squares}</td></tr>
+  );
 }
 
+Row.propTypes = {
+  rowData: PropTypes.arrayOf(PropTypes.object),
+  rowNum: PropTypes.number.isRequired,
+  numCols: PropTypes.number.isRequired,
+  onClick: PropTypes.func.isRequired,
+  onContextMenu: PropTypes.func.isRequired,
+};
 export default Row;

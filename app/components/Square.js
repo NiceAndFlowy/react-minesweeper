@@ -1,25 +1,31 @@
-import React, { Component } from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 
-class Square extends Component {
-  revealSquare = (e)=> {
-    this.props.onClick(e, this.props.square);
-  }
-  flagSquare = (e)=> {
-    this.props.onContextMenu(e, this.props.square);
-  }
-  render() {
-    return (
-      <button 
-        className={"square" + (this.props.square.isShown ? ` shown value${this.props.square.numMinesNearby}` : "") + (this.props.square.isMine ? " mine" : "") + 
-        (this.props.square.isFlagged ? " flag" : "")} 
-        type="button"
-        onClick={this.revealSquare}
-        onContextMenu={this.flagSquare}
-      >
-        {!this.props.square.isMine &&  !this.props.square.isFlagged && this.props.square.isShown &&this.props.value}
-      </button>
-    );
-  }
-}
+const Square = (props) => {
+  const revealSquare = (e) => {
+    props.onClick(e, props.square);
+  };
+  const flagSquare = (e) => {
+    props.onContextMenu(e, props.square);
+  };
+
+  return (
+    <button
+      className={`square${props.square.isShown ? ` shown value${props.square.numMinesNearby}` : ""}${props.square.isMine ? " mine" : ""
+        }${props.square.isFlagged ? " flag" : ""}`}
+      type="button"
+      onClick={revealSquare}
+      onContextMenu={flagSquare}
+    >
+      {!props.square.isMine && !props.square.isFlagged && props.square.isShown && props.square.numMinesNearby}
+    </button>
+  );
+};
+
+Square.propTypes = {
+  square: PropTypes.object,
+  onClick: PropTypes.func.isRequired,
+  onContextMenu: PropTypes.func.isRequired,
+};
 
 export default Square;

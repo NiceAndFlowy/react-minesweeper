@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import Row from './Row';
 import Square from './Square';
 
@@ -8,11 +9,10 @@ class Board extends Component {
     this.state = {
       table: this.createTable(props),
     }
-    console.log('The table is filled');
   }
   
   componentWillReceiveProps(nextProps) {
-    if (this.props.difficulty !== nextProps.difficulty || nextProps.numSquaresRevealed === 0) {
+    if (this.props.difficulty !== nextProps.difficulty || (this.props.numSquaresRevealed > nextProps.numSquaresRevealed)) {
       this.setState(() => {
         return ({table: this.createTable(nextProps)});
       });
@@ -44,7 +44,6 @@ class Board extends Component {
         i--;
       } else {
         table[randomRow][randomCol].isMine = true;
-        // console.log(`this row col isEgg ${randomRow} ${randomCol}`);
       }
     }
     return table;
@@ -62,27 +61,27 @@ class Board extends Component {
     }
 
     if (square.isMine) {
-      alert("You lost");
       this.props.setGameOver();
     }
+    this.props.setIfGameWon();
+    
   }
   
   handleFlagClick = (event, square) => {
     event.preventDefault();
-    if (!square.isShown) {
-      // Toggle flag
-      console.log(event);
-      console.log("Rightclicked");
-      const tableCopy = this.state.table.slice();
-      tableCopy[square.row][square.col].isFlagged = !tableCopy[square.row][square.col].isFlagged;
-      this.setState(() => { ({table: tableCopy}) });
-    }
     
+    if (square.isShown) return;
+    
+
+    // Toggle flag
+    const tableCopy = this.state.table.slice();
+    tableCopy[square.row][square.col].isFlagged = !tableCopy[square.row][square.col].isFlagged;
+    this.setState(() => { ({table: tableCopy}) });
+    this.props.updateFlagCount(tableCopy[square.row][square.col].isFlagged);
+    this.props.setIfGameWon();
   }
 
-  gameOver = () => {
 
-  }
 
   countNumMines = (square) => {
     // Check every square around "square"
@@ -151,5 +150,14 @@ class Board extends Component {
     );
   }
 }
+
+Board.propTypes = {
+  difficulty: PropTypes.string.isRequired,
+  numSquaresRevealed: PropTypes.number.isRequired,
+  incrementRevealedSquareCount: PropTypes.func.isRequired,
+  setGameOver: PropTypes.func.isRequired,
+  setIfGameWon: PropTypes.func.isRequired,
+  updateFlagCount: PropTypes.func.isRequired,
+};
 
 export default Board;
