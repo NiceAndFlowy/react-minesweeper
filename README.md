@@ -27,7 +27,6 @@ Add additional notes about how to deploy this on a live system
 ## Skills used
 
 * React.js
-* Node.js
 * Heroku
 * JavaScript
 * HTML5
