@@ -1,6 +1,6 @@
 # react-minesweeper
 
-A SPA version of Minesweeper.
+A SPA version of Minesweeper built with React.
 
 ## Demo
 
