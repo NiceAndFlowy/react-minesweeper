@@ -6,9 +6,7 @@ A SPA version of Minesweeper.
 
 https://protected-sierra-52671.herokuapp.com/
 
-### Installing
-
-Install dependencies with npm
+### Installing dependencies
 
 ```
 npm install 
